@@ -19,7 +19,7 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   // Create a user
-  @Post('/')
+  @Post('/add')
   async create(@Res() res, @Body() createUserDTO: CreateUserDTO) {
     const newUser = await this.userService.addUser(createUserDTO);
 
@@ -30,8 +30,17 @@ export class UserController {
   }
 
   @Get('/:userID')
-  async getUser(@Res() res, @Param('userID') userID) {
-    const user = await this.userService.getUser(userID);
+  async getUserByID(@Res() res, @Param('userID') userID) {
+    const user = await this.userService.getUserByID(userID);
+
+    if (!user) throw new NotFoundException('User does not exist!');
+
+    return res.status(HttpStatus.OK).json(user);
+  }
+
+  @Post('/')
+  async getUser(@Res() res, @Body() createUserDTO: CreateUserDTO) {
+    const user = await this.userService.getUser(createUserDTO);
 
     if (!user) throw new NotFoundException('User does not exist!');
 

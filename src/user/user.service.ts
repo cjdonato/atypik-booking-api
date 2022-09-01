@@ -16,9 +16,17 @@ export class UserService {
     return this.usersRepository.save(newUser);
   }
 
-  async getUser(userID: number): Promise<User> {
+  async getUserByID(userID: number): Promise<User> {
     // const user = this.users.find((u) => u.id === userID);
     return this.usersRepository.findOneBy({ id: userID });
+  }
+
+  async getUser(createUserDTO: CreateUserDTO): Promise<User> {
+    // const user = this.users.find((u) => u.id === userID);
+    return this.usersRepository.findOneBy({
+      username: createUserDTO.username,
+      password: createUserDTO.password,
+    });
   }
 
   async getUsers(): Promise<User[]> {
