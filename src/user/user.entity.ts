@@ -1,4 +1,4 @@
-import { Accommodation } from 'src/accommodation/accommodation.entity';
+import { Accommodation } from '../accommodation/accommodation.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
