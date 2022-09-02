@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { User } from './user.entity';
+// import { faker } from '@faker-js/faker';
 
 @Injectable()
 export class UserService {
@@ -30,6 +31,21 @@ export class UserService {
   }
 
   async getUsers(): Promise<User[]> {
+    // Create 10 random users
+    // for (let i = 0; i < 10; i++) {
+    //   const randomEmail = faker.internet.email();
+    //   const randomPassword = faker.random.alphaNumeric(8);
+    //   const randomName1 = faker.name.firstName();
+    //   const randomName2 = faker.name.lastName();
+    //   const newRandomUser =this.usersRepository.create({
+    //     email: randomEmail,
+    //     password: randomPassword,
+    //     name1: randomName1,
+    //     name2: randomName2,
+    //   });
+    //   this.usersRepository.save(newRandomUser)
+    // }
+
     return this.usersRepository.find();
   }
 

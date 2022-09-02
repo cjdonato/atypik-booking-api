@@ -7,6 +7,9 @@ export class Accommodation {
   id: number;
 
   @Column()
+  type: string;
+
+  @Column()
   name: string;
 
   @Column()
@@ -14,6 +17,12 @@ export class Accommodation {
 
   @Column()
   image: string;
+
+  @Column()
+  price: number;
+
+  @Column()
+  capacity: number;
 
   @ManyToOne(() => User, (user) => user.accommodations)
   user: User;

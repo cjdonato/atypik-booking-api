@@ -4,6 +4,7 @@ import { User } from '../user/user.entity';
 import { Repository } from 'typeorm';
 import { Accommodation } from './accommodation.entity';
 import { CreateAccommmodationDTO } from './dto/create-accommodation.dto';
+// import { faker } from '@faker-js/faker';
 
 @Injectable()
 export class AccommodationService {
@@ -18,15 +19,19 @@ export class AccommodationService {
   async addAccommodation(
     createAccommodationDTO: CreateAccommmodationDTO,
   ): Promise<Accommodation> {
-    const { id, name, description, image, userID } = createAccommodationDTO;
+    const { id, type, name, description, image, price, capacity, userID } =
+      createAccommodationDTO;
 
     const user = await this.usersRepository.findOneBy({ id: userID });
 
     const newAccommodation = this.accommodationRepository.create({
       id,
+      type,
       name,
       description,
       image,
+      price,
+      capacity,
       user,
     });
 
@@ -37,7 +42,37 @@ export class AccommodationService {
     return this.accommodationRepository.findOneBy({ id: accommodationID });
   }
 
+  async getAccommodationByUser(userID: number): Promise<Accommodation[]> {
+    const user = await this.usersRepository.findOneBy({ id: userID });
+
+    return this.accommodationRepository.findBy({ user });
+  }
+
   async getAccommodations(): Promise<Accommodation[]> {
+    // Create 10 random accoms
+    // for (let i = 0; i < 10; i++) {
+    //   const randomType = 'Category' + (Math.floor(Math.random() * 3) + 1);
+    //   const randomName = faker.lorem.words();
+    //   const randomDesc = faker.lorem.paragraphs();
+    //   const randomImage = faker.image.nature(640, 480, true);
+    //   const randomPrice = Math.floor(Math.random() * 300) + 10;
+    //   const randomCapacity = Math.floor(Math.random() * 10) + 1;
+
+    //   const userID = Math.floor(Math.random() * 55) + 8;
+    //   const user = await this.usersRepository.findOneBy({ id: userID });
+
+    //   const newRandomAccom = this.accommodationRepository.create({
+    //     type: randomType,
+    //     name: randomName,
+    //     description: randomDesc,
+    //     image: randomImage,
+    //     price: randomPrice,
+    //     capacity: randomCapacity,
+    //     user,
+    //   });
+    //   this.accommodationRepository.save(newRandomAccom);
+    // }
+
     return this.accommodationRepository.find({ relations: { user: true } });
   }
 

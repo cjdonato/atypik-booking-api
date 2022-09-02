@@ -48,6 +48,17 @@ export class AccommodationController {
     return res.status(HttpStatus.OK).json(accommodation);
   }
 
+  @Get('/user/:userID')
+  async getAccommodationByUser(@Res() res, @Param('userID') userID) {
+    const accommodation =
+      await this.accommodationService.getAccommodationByUser(userID);
+
+    if (!accommodation)
+      throw new NotFoundException('Accommodation does not exist!');
+
+    return res.status(HttpStatus.OK).json(accommodation);
+  }
+
   @Get('/')
   async getAccommodations(@Res() res) {
     const accommodations = await this.accommodationService.getAccommodations();
