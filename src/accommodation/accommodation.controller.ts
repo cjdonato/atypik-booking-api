@@ -18,7 +18,7 @@ import { CreateAccommmodationDTO } from './dto/create-accommodation.dto';
 export class AccommodationController {
   constructor(private accommodationService: AccommodationService) {}
 
-  @Post('/')
+  @Post('/add')
   async create(
     @Res() res,
     @Body() createAccommodationDTO: CreateAccommmodationDTO,
