@@ -24,7 +24,7 @@ export class UserService {
   async getUser(createUserDTO: CreateUserDTO): Promise<User> {
     // const user = this.users.find((u) => u.id === userID);
     return this.usersRepository.findOneBy({
-      username: createUserDTO.username,
+      email: createUserDTO.email,
       password: createUserDTO.password,
     });
   }

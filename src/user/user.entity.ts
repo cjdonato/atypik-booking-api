@@ -7,10 +7,16 @@ export class User {
   id: number;
 
   @Column({ unique: true })
-  username: string;
+  email: string;
 
   @Column()
   password: string;
+
+  @Column()
+  name1: string;
+
+  @Column()
+  name2: string;
 
   @OneToMany(() => Accommodation, (accom) => accom.user)
   accommodations: Accommodation[];
